@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>全局组件</title>
+	<script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+<!-- 
+Vue两大核心：1. 数据驱动界面改变 2. 组件化
+1. 什么是组件？什么是组件化？
+1.1 在前端开发中组件就是把一个很大的界面拆分为多个小界面，每个小的界面就是一个组件
+1.2 将大界面拆分成小界面就是组件化
+
+2. 组件化的好处
+2.1 可以简化Vue实例代码
+2.2 可以提高复用性
+
+3. Vue中如何创建组件？
+3.1 创建组件构造器
+3.2 注册已经创建好的组件
+3.3 使用创建好的组件
+ -->
+
+<!-- 这里就是MVVM中的View -->
+<div id="app">
+	<!-- 3.3 使用创建好的组件 -->
+	<abc></abc>
+</div>
+</body>
+<script type="text/javascript">
+	// 3.1 创建组件构造器
+	let profile = Vue.extend({
+		// 注意点：在创建组件指定组件的模板的时候，模板只能有一个根元素
+		template: `
+			<div>
+				<span>这是一个组件</span>
+			</div>
+		`
+	});
+	// 3.2 注册已经创建好的组件
+	// 第一个参数：指定注册好的组件名称
+	// 第二个参数：传入已经创建好的组件构造器
+	Vue.component("abc", profile);
+
+	// 这里就是MVVM中的View Model
+	let vue = new Vue({
+		el: '#app',
+		// 这里就是MVVM中的Model
+		data: {
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {
+		}
+	});
+</script>
+</html>

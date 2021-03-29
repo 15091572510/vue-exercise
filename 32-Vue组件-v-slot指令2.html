@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue组件-v-slot指令2</title>
+	<script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+<!-- 
+在2.6.0中，我们为具名插槽和作用域插槽引入了一个新的统一的语法（即v-slot指令）。
+它取代了slot和slot-scope
+
+也就是说我们除了可以通过v-slot指令告诉Vue内容要填充到哪一个具名插槽中
+还可以通过v-slot指令告诉Vue如何接收作用域插槽暴露的数据
+
+v-slot:插槽名称="作用域名称"
+ -->
+<!-- 这里就是MVVM中的View -->
+<div id="app">
+	<father></father>
+</div>
+</body>
+<template id="father">
+	<div>
+		<son>
+			<!-- <div>我是填充的内容</div> -->
+
+			<!-- 
+			slot-scope="abc"作用：接收子组件插槽暴露的数据
+			 -->
+			 <!-- 
+				作用域插槽的应用场景：子组件提供数据，父组件决定如何渲染
+			  -->
+			<!-- <template slot-scope="abc">
+				<li v-for="(name, index) in abc.names">{{name}}</li>
+			</template> -->
+
+			<!-- <template v-slot:default="abc">
+				<li v-for="(name, index) in abc.names">{{name}}</li>
+			</template> -->
+			<!-- <template #default="abc">
+				<li v-for="(name, index) in abc.names">{{name}}</li>
+			</template> -->
+			<template #one="abc">
+				<li v-for="(name, index) in abc.names">{{name}}</li>
+			</template>
+		</son>
+	</div>
+</template>
+<template id="son">
+	<div>
+		<div>我是头部{{names}}</div>
+		<slot name="one" v-bind:names="names">我是默认数据</slot>
+		<div>我是底部</div>
+	</div>
+</template>
+<script type="text/javascript">
+	Vue.component("father", {
+		template: "#father",
+		components: {
+			"son": {
+				template: "#son",
+				data: function() {
+					return {
+						names: ["zs", "ls", "ww", "zl"]
+					}
+				}
+			}
+		}
+	});
+
+	// 这里就是MVVM中的View Model
+	let vue = new Vue({
+		el: '#app',
+		// 这里就是MVVM中的Model
+		data: {
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {
+		},
+		// 专门用于定义局部组件的
+		components: {
+		}
+	});
+</script>
+</html>

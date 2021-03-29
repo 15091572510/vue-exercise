@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue组件-匿名插槽</title>
+	<script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+<!-- 这里就是MVVM中的View -->
+<div id="app">
+	<father></father>
+</div>
+</body>
+<template id="father">
+	<div>
+		<!-- 需求：在使用子组件的时候给子组件动态的添加一些内容 -->
+		<son>
+			<!-- 注意点： 默认情况下是不能在使用子组件的时候，给子组件动态的添加内容的
+				如果像在使用子组件的时候，给子组件动态的添加内容，那么就必须使用插槽
+			 -->
+			 <div>我是追加的内容1</div>
+			 <div>我是追加的内容2</div>
+			 <div>我是追加的内容3</div>
+		</son>
+	</div>
+</template>
+<template id="son">
+	<div>
+		<div>我是头部</div>
+		<!-- 这里的slot标签就是插槽，插槽其实就是一个坑 
+			只要有了这个坑，那么以后使用这就可以根据自己的需求来填这个坑
+		-->
+		<!-- 注意点：插槽可以指定默认数据，如果使用者没有填这个坑，那么就会显示默认数据
+				如果使用者填了这个坑，那么就会利用使用者填坑的内容替换这个插槽 -->
+		<!-- 注意点：插槽是可以指定名称的，默认情况下如果没有指定名称，我们称之为匿名插槽 -->
+		<!-- 匿名插槽的特点： 有多少各匿名插槽，填充的数据就会被拷贝几份
+							虽然我们可以指定多个匿名插槽，但是在企业开发中推荐只写一个匿名插槽 -->
+		<slot>我是默认数据</slot>
+		<!-- <slot>我是默认数据</slot> -->
+		<div>我是底部</div>
+	</div>
+</template>
+<script type="text/javascript">
+	// 爷爷组件
+	Vue.component("father", {
+		template: "#father",
+		components: {
+			"son": {
+				template: "#son"
+			}
+		}
+	});
+
+	// 这里就是MVVM中的View Model
+	let vue = new Vue({
+		el: '#app',
+		// 这里就是MVVM中的Model
+		data: {
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {
+		},
+		// 专门用于定义局部组件的
+		components: {
+		}
+	});
+</script>
+</html>

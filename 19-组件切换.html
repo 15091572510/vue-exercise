@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>组件切换</title>
+	<script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+<!-- 
+1. 组件切换
+对于普通元素我们可以通过v-if来实现切换
+对于组件我们也可以通过v-if来实现切换
+因为组件本质就是一个自定义元素
+ -->
+<!-- 这里就是MVVM中的View -->
+<div id="app">
+	<button @click="toggle">切换</button>
+	<!-- <p v-if="isShow">我是首页</p>
+	<p v-else>我是图片</p> -->
+	<home v-if="isShow"></home>
+	<photo v-else></photo>
+</div>
+</body>
+<template id="home">
+	<div>
+		<p>我是首页</p>
+	</div>
+</template>
+<template id="photo">
+	<div>
+		<p>我是图片</p>
+	</div>
+</template>
+<script type="text/javascript">
+	/* 自定义全局组件 */
+	Vue.component("home", {
+		// 注意点：在创建组件指定组件的模板的时候，模板只能有一个根元素
+		template: "#home"
+	});
+	Vue.component("photo", {
+	// 注意点：在创建组件指定组件的模板的时候，模板只能有一个根元素
+	template: "#photo"
+	});
+
+	// 这里就是MVVM中的View Model
+	let vue = new Vue({
+		el: '#app',
+		// 这里就是MVVM中的Model
+		data: {
+			isShow: true
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {
+			toggle() {
+				this.isShow = !this.isShow;
+			}
+		}
+	});
+</script>
+</html>

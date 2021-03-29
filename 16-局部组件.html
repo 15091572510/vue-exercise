@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>局部组件</title>
+	<script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+
+<!-- 这里就是MVVM中的View -->
+<div id="app1">
+	<abc></abc>
+</div>
+<div id="app2">
+	<abc></abc>
+</div>
+</body>
+<template id="template">
+	<div>
+		<span>这是一个组件</span>
+	</div>
+</template>
+<script type="text/javascript">
+	// Vue.component("abc", {
+	// 	// 注意点：在创建组件指定组件的模板的时候，模板只能有一个根元素
+	// 	template: "#template"
+	// });
+
+	// 这里就是MVVM中的View Model
+	let vue1 = new Vue({
+		el: '#app1',
+		// 这里就是MVVM中的Model
+		data: {
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {
+		}
+	});
+
+	let vue2 = new Vue({
+		el: '#app2',
+		// 这里就是MVVM中的Model
+		data: {
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {
+		},
+		components: {
+			"abc": {
+				template: "#template"
+			}
+		}
+	});
+</script>
+</html>

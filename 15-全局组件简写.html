@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>全局组件简写</title>
+	<script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+
+<!-- 这里就是MVVM中的View -->
+<div id="app">
+	<!-- 3.3 使用创建好的组件 -->
+	<abc></abc>
+</div>
+</body>
+<!-- <script type="text/html" id="template">
+	<div>
+		<span>这是一个组件</span>
+	</div>
+</script> -->
+<template id="template">
+	<div>
+		<span>这是一个组件</span>
+	</div>
+</template>
+<script type="text/javascript">
+	// Vue.component("abc", {
+	// 	// 注意点：在创建组件指定组件的模板的时候，模板只能有一个根元素
+	// 	template: `
+	// 		<div>
+	// 			<span>这是一个组件</span>
+	// 		</div>
+	// 	`
+	// });
+
+	Vue.component("abc", {
+		// 注意点：在创建组件指定组件的模板的时候，模板只能有一个根元素
+		template: "#template"
+	});
+
+	// 这里就是MVVM中的View Model
+	let vue = new Vue({
+		el: '#app',
+		// 这里就是MVVM中的Model
+		data: {
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {
+		}
+	});
+</script>
+</html>

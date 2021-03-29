@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自定局部过滤器</title>
+	<script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+<!-- 
+1. 自定义全局过滤器的特点
+在任何一个Vue实例控制的区域中都可以使用
+
+2. 自定义局部过滤器的特点
+只能在自定义的那个Vue实例中使用
+
+3. 如何自定义一个局部过滤器
+给创建Vue实例时传递的对象添加
+filters：{
+	// key: 过滤器名称
+	// value: 过滤器处理函数
+	‘formatStr’：function(value) {}
+}
+-->
+
+<!-- 这里就是MVVM中的View -->
+<div id="app1">
+	<p>{{name | formatStr}}</p>
+</div>
+<div id="app2">
+	<p>{{name | formatStr}}</p>
+</div>
+</body>
+<script type="text/javascript">
+
+
+	// Vue.filter("formatStr", function(value) {
+	// 	let res = value.replace(/学院/g, "大学");
+	// 	return res;
+	// });
+
+	// 这里就是MVVM中的View Model
+	let vue1 = new Vue({
+		el: '#app1',
+		// 这里就是MVVM中的Model
+		data: {
+			name: "知播渔学院，指趣学院，前端学院区块链学院"
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {},
+	});
+		// 这里就是MVVM中的View Model
+	let vue2 = new Vue({
+		el: '#app2',
+		// 这里就是MVVM中的Model
+		data: {
+			name: "知播渔学院，指趣学院，前端学院区块链学院"
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {},
+		filters: {
+			'formatStr': function(value) {
+				let res = value.replace(/学院/g, "大学");
+				return res;
+			}
+		}
+	});
+</script>
+</html>

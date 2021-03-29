@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>组件动画</title>
+	<script type="text/javascript" src="./vue.js"></script>
+</head>
+<style type="text/css">
+	.v-enter {
+		opacity: 0;
+		margin-left: 500px;
+	}
+	.v-enter-active {
+		transition: all 1s;
+	}
+	.v-enter-to {
+		opacity: 1;
+	}
+	.v-leave {
+		opacity: 1;
+	}
+	.v-leave-active {
+		transition: all 1s;
+	}
+	.v-leave-to {
+		opacity: 0;
+		margin-left: 500px;
+	}
+</style>
+<body>
+<!-- 
+1. 如何给组件添加动画？
+给组件添加动画和过去给元素添加动画一样
+如果是单个组件就使用transition
+如果是多个组件就是用transition-group
+
+2. 过渡动画注意点
+默认情况下进入动画和离开动画是同事执行的，如果想一个做完之后再做另一个，需要指定动画模式
+ -->
+<!-- 这里就是MVVM中的View -->
+<div id="app">
+	<button @click="toggle">切换</button>
+	<transition appear mode="out-in">
+		<component v-bind:is="name"></component>
+	</transition>
+</div>
+</body>
+<template id="home">
+	<div>
+		<p>我是首页</p>
+	</div>
+</template>
+<template id="photo">
+	<div>
+		<p>我是图片</p>
+	</div>
+</template>
+<script type="text/javascript">
+	/* 自定义全局组件 */
+	Vue.component("home", {
+		// 注意点：在创建组件指定组件的模板的时候，模板只能有一个根元素
+		template: "#home"
+	});
+	Vue.component("photo", {
+	// 注意点：在创建组件指定组件的模板的时候，模板只能有一个根元素
+	template: "#photo"
+	});
+
+	// 这里就是MVVM中的View Model
+	let vue = new Vue({
+		el: '#app',
+		// 这里就是MVVM中的Model
+		data: {
+			name: "home"
+		},
+		// 专门用于存储监听事件回调函数
+		methods: {
+			toggle() {
+				this.name = this.name === "home" ? "photo" : "home";
+			}
+		}
+	});
+</script>
+</html>
